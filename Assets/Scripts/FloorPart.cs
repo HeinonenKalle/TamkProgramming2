@@ -1,33 +1,40 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class FloorPart : MonoBehaviour {
+namespace TamkRunner
+{
+    public class FloorPart : MonoBehaviour {
 
-    public float startingPoint;
-    public float endPoint;
-    private Vector3 _locationAtStart;
-    private Vector3 _locationAtEnd;
-    private float _startTime;
-    private float _journeyLength;
+        public float m_fStartZ = 25.0f;
+        public float m_fEndZ = -15.0f;
+        public float m_fMovementSpeed;
 
-    // Use this for initialization
-    void Start () {
-        _locationAtStart = transform.position;
-        _locationAtEnd = new Vector3(_locationAtStart.x, _locationAtStart.y, endPoint);
-        _journeyLength = Vector3.Distance(_locationAtStart, _locationAtEnd);
-    }
-	
-	// Update is called once per frame
-	void Update () {
-        float distCovered = (Time.time - _startTime);
-        float fracJourney = distCovered / _journeyLength;
-        transform.position = Vector3.Lerp(_locationAtStart, _locationAtEnd, fracJourney);
+        public FloorManager m_gcFloorManager;
 
-        Vector3 _currentPosition = transform.position;
+        private Transform m_tTransform;
+        private Vector3 m_vTrajectory;
 
-        if (_currentPosition.z <= endPoint)
-        {
-            Destroy(gameObject);
+        // Use this for initialization
+        void Start () {
+            m_tTransform = GetComponent<Transform>();
+            m_tTransform.position = new Vector3(0.0f, 0.0f, m_fStartZ);
+            m_vTrajectory = Vector3.zero;
+            m_vTrajectory.z = -1;
+        }
+
+	    // Update is called once per frame
+	    void Update () {
+            m_tTransform.position += (m_vTrajectory * m_fMovementSpeed) * Time.deltaTime;
+            if (m_tTransform.position.z <= m_fEndZ)
+            {
+                if (null != m_gcFloorManager)
+                    m_gcFloorManager.SpawnNewFloor(m_tTransform.position.z - m_fEndZ);
+                else
+                    Debug.LogError("Floor part %s has no reference to the floor manager!");
+
+                Destroy(gameObject);
+            }
         }
     }
 }
