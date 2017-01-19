@@ -4,7 +4,15 @@ using UnityEngine;
 
 namespace TamkRunner
 {
+    public enum ObjectType
+    {
+        Floor,
+        Enemy
+    }
+
     public class FloorPart : MonoBehaviour {
+
+        public ObjectType identity;
 
         public float m_fStartZ = 25.0f;
         public float m_fEndZ = -15.0f;
@@ -16,7 +24,7 @@ namespace TamkRunner
         private Vector3 m_vTrajectory;
 
         // Use this for initialization
-        void Start () {
+        protected void Start () {
             m_tTransform = GetComponent<Transform>();
             m_tTransform.position = new Vector3(0.0f, 0.0f, m_fStartZ);
             m_vTrajectory = Vector3.zero;
@@ -24,19 +32,36 @@ namespace TamkRunner
         }
 
 	    // Update is called once per frame
-	    void Update () {
-            m_tTransform.position += (m_vTrajectory * m_fMovementSpeed) * Time.deltaTime;
-            if (m_tTransform.position.z <= m_fEndZ)
+	    void Update ()
+        {
+            Move();
+            DeathCheck(identity);
+            SpeedCheck();
+        }
+
+        public void SpeedCheck()
+        {
+            m_fMovementSpeed = m_gcFloorManager.m_fMovementSpeed;
+        }
+
+        public void DeathCheck(ObjectType identity)
+        {
+            if (transform.position.z <= m_fEndZ)
             {
-                if (null != m_gcFloorManager)
+                if (null != m_gcFloorManager && identity == ObjectType.Floor)
+                    m_gcFloorManager.SpawnNewFloor(m_tTransform.position.z - m_fEndZ);
+                else if (null != m_gcFloorManager && identity == ObjectType.Enemy)
                     m_gcFloorManager.SpawnNewFloor(m_tTransform.position.z - m_fEndZ);
                 else
-                    Debug.LogError("Floor part %s has no reference to the floor manager!");
+                    Debug.LogError("No reference to the floor manager!");
 
                 Destroy(gameObject);
             }
+        }
 
-            m_fMovementSpeed = m_gcFloorManager.m_fMovementSpeed;
+        public void Move()
+        {
+            transform.position += (m_vTrajectory * m_fMovementSpeed) * Time.deltaTime;
         }
     }
 }

@@ -6,6 +6,7 @@ namespace TamkRunner
 { 
     public class FloorManager : MonoBehaviour {
         public Transform[] m_aFloorPrefabs;
+        public Transform EnemyPrefab;
 
         public float m_fFloorStartZ;
         public float m_fFloorEndZ;
@@ -14,6 +15,7 @@ namespace TamkRunner
         public int SafeFloorNumber;
         public float m_fMovementSpeed { get; private set; }
         public float SpeedUpAmount;
+        
 
         // Use this for initialization
         void Start () {
@@ -33,7 +35,6 @@ namespace TamkRunner
 	
 	    // Update is called once per frame
 	    void Update () {
-	    
 	    }
 
         public void SpawnSafeFloor(float fZOffset)
@@ -90,6 +91,43 @@ namespace TamkRunner
             }
 
             gcFloorPart.m_gcFloorManager = this;
+
+            if (Random.Range(0, 3) == 1)
+            {
+                SpawnNewBaddie();
+            }
+        }
+
+        public void SpawnNewBaddie()
+        {
+            Transform EnemyTransform = Instantiate(EnemyPrefab, new Vector3(0.0f, 1.3f, m_fFloorStartZ), Quaternion.identity) as Transform;
+            if (null == EnemyTransform)
+            {
+                Debug.LogError("Unable to instantiate enemy");
+                return;
+            }
+
+            FloorPart enemyPart = EnemyTransform.GetComponent<BaddieBehavior>();
+            if (null == enemyPart)
+            {
+                Debug.LogError("Prefab does not have a FloorPart component, unable to create the enemy!");
+                return;
+            }
+
+            enemyPart.m_fEndZ = m_fFloorEndZ;
+            enemyPart.m_fMovementSpeed = m_fMovementSpeed;
+
+            if (m_fMovementSpeed < m_fMaxMovementSpeed)
+            {
+                m_fMovementSpeed += SpeedUpAmount;
+
+                if (m_fMovementSpeed > m_fMaxMovementSpeed)
+                {
+                    m_fMovementSpeed = m_fMaxMovementSpeed;
+                }
+            }
+
+            enemyPart.m_gcFloorManager = this;
         }
     }
 }
