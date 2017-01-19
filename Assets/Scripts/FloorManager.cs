@@ -12,8 +12,8 @@ namespace TamkRunner
         public float m_fMinMovementSpeed;
         public float m_fMaxMovementSpeed;
         public int SafeFloorNumber;
-
-        private float m_fMovementSpeed;
+        public float m_fMovementSpeed { get; private set; }
+        public float SpeedUpAmount;
 
         // Use this for initialization
         void Start () {
@@ -78,6 +78,16 @@ namespace TamkRunner
             gcFloorPart.m_fEndZ = m_fFloorEndZ;
             gcFloorPart.m_fStartZ = m_fFloorStartZ + fZOffset;
             gcFloorPart.m_fMovementSpeed = m_fMovementSpeed;
+
+            if (m_fMovementSpeed < m_fMaxMovementSpeed)
+            {
+                m_fMovementSpeed += SpeedUpAmount;
+
+                if (m_fMovementSpeed > m_fMaxMovementSpeed)
+                {
+                    m_fMovementSpeed = m_fMaxMovementSpeed;
+                }
+            }
 
             gcFloorPart.m_gcFloorManager = this;
         }

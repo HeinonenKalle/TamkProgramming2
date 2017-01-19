@@ -35,6 +35,8 @@ namespace TamkRunner
 
                 Destroy(gameObject);
             }
+
+            m_fMovementSpeed = m_gcFloorManager.m_fMovementSpeed;
         }
     }
 }

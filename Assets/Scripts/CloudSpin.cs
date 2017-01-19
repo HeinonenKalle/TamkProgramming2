@@ -25,13 +25,14 @@ namespace TamkRunner
 
             if (DirectionToRotateIn == rotationDirection.left)
             {
-                Rotation.y += RotationSpeed * Time.deltaTime;
+                Rotation.z += RotationSpeed * Time.deltaTime;
             }
             else if (DirectionToRotateIn == rotationDirection.right)
             {
-                Rotation.y -= RotationSpeed * Time.deltaTime;
+                Rotation.z -= RotationSpeed * Time.deltaTime;
             }
-            
+
+            transform.Rotate(new Vector3(0, 0, Rotation.z));
 	    }
     }
 }
