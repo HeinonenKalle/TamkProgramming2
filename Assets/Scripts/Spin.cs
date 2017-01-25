@@ -9,7 +9,7 @@ namespace TamkRunner
         right
     }
 
-    public class CloudSpin : MonoBehaviour {
+    public class Spin : MonoBehaviour {
 
         public rotationDirection DirectionToRotateIn;
         public float RotationSpeed;
