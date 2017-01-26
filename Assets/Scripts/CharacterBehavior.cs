@@ -60,8 +60,7 @@ namespace TamkRunner
 
         private void PlayDeathsplosion()
         {
-            _deathParticles.transform.position = transform.position;
-            _deathParticles.Play();
+            Instantiate(_deathParticles, transform.position, _deathParticles.transform.rotation);
         }
 
         private void Respawn()

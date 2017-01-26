@@ -33,7 +33,7 @@ namespace TamkRunner
             float fRatio = (Time.time - m_fEventTime) / m_fLerpDuration;
 
             //m_gcTransform.position = Vector3.Lerp(m_gcLerpPos1.position, m_gcLerpPos2.position, Easing.EaseInOut(fRatio, EasingType.Cubic, EasingType.Quadratic));
-            float Progress = Mathf.Lerp(_lerpStartPos, _lerpEndPos, Easing.EaseInOut(fRatio, EasingType.Cubic, EasingType.Quadratic));
+            float Progress = Mathf.Lerp(_lerpStartPos, _lerpEndPos, Easing.EaseInOut(fRatio, EasingType.Cubic, EasingType.Sine));
 
             transform.position = new Vector3(Progress, 1.3f, transform.position.z);
 

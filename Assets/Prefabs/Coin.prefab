@@ -93,6 +93,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be5a594da11688e4cbbc2943d4be205e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  identity: 2
+  m_fStartZ: 25
+  m_fEndZ: -15
+  m_fMovementSpeed: 0
+  m_gcFloorManager: {fileID: 0}
 --- !u!114 &114228669547635112
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -113,7 +118,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1898267962459102}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2

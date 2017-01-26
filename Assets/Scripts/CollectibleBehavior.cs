@@ -2,18 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollectibleBehavior : MonoBehaviour {
-    
-	// Use this for initialization
-	void Start () {
-		
-	}
-
-    private void OnTriggerEnter(Collider other)
+namespace TamkRunner
+{
+    public class CollectibleBehavior : FloorPart
     {
-        if (other.CompareTag("Player"))
+        new protected void Start()
         {
-            Destroy(gameObject);
+            base.Start();
+        }
+
+        void Update()
+        {
+            Move();
+            transform.position = new Vector3(transform.position.x, 1.23f, transform.position.z);
+            DeathCheck(identity);
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Player"))
+            {
+                m_gcFloorManager.PlayCoinParticles(transform.position);
+                Destroy(gameObject);
+            }
         }
     }
 }
