@@ -15,7 +15,9 @@ namespace TamkRunner
         public int SafeFloorNumber;
         public float m_fMovementSpeed { get; private set; }
         public float SpeedUpAmount;
-        
+        public int MaxEnemiesOnScreen;
+
+        private int _currentEnemies;
 
         // Use this for initialization
         void Start () {
@@ -92,14 +94,19 @@ namespace TamkRunner
 
             gcFloorPart.m_gcFloorManager = this;
 
-            if (Random.Range(0, 3) == 1)
+            if (_currentEnemies < MaxEnemiesOnScreen)
             {
-                SpawnNewBaddie();
+                if (Random.Range(0, 3) == 1)
+                {
+                    SpawnNewBaddie();
+                }
             }
         }
 
         public void SpawnNewBaddie()
         {
+            _currentEnemies++;
+            Debug.Log(_currentEnemies);
             Transform EnemyTransform = Instantiate(EnemyPrefab, new Vector3(0.0f, 1.3f, m_fFloorStartZ), Quaternion.identity) as Transform;
             if (null == EnemyTransform)
             {
@@ -128,6 +135,20 @@ namespace TamkRunner
             }
 
             enemyPart.m_gcFloorManager = this;
+
+            
+        }
+
+        public void ManageEnemyCount()
+        {
+            _currentEnemies--;
+
+            if (_currentEnemies < 0)
+            {
+                _currentEnemies = 0;
+            }
+
+            Debug.Log(_currentEnemies);
         }
     }
 }

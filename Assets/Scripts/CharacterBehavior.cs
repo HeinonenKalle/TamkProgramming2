@@ -10,6 +10,7 @@ namespace TamkRunner
         public float MoveSpeed;
         public float JumpSpeed;
         public float Gravity;
+        public ParticleSystem _deathParticles;
 
         private CharacterController _characterController;
         private Vector3 _moveDirection = Vector3.zero;
@@ -53,7 +54,14 @@ namespace TamkRunner
         private void Die()
         {
             Debug.Log("Git Gud");
+            PlayDeathsplosion();
             Respawn();
+        }
+
+        private void PlayDeathsplosion()
+        {
+            _deathParticles.transform.position = transform.position;
+            _deathParticles.Play();
         }
 
         private void Respawn()

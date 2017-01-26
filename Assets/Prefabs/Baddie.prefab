@@ -379,7 +379,7 @@ MonoBehaviour:
   m_gcFloorManager: {fileID: 0}
   m_gcLerpPos1: {fileID: 0}
   m_gcLerpPos2: {fileID: 0}
-  m_fLerpDuration: 1
+  m_fLerpDuration: 0.8
   m_fEventTime: 0
 --- !u!135 &135762441431711914
 SphereCollider:

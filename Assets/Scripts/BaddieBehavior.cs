@@ -6,14 +6,14 @@ namespace TamkRunner
 {
     public class BaddieBehavior : FloorPart
     {
-        private ObjectType _identity = ObjectType.Enemy;
+
         public Transform m_gcLerpPos1;
         public Transform m_gcLerpPos2;
 
         public float m_fLerpDuration;
-
         public float m_fEventTime;
 
+        private ObjectType _identity = ObjectType.Enemy;
         private float _lerpStartPos;
         private float _lerpEndPos;
 
@@ -22,9 +22,7 @@ namespace TamkRunner
         {
             base.Start();
             m_fEventTime = Time.time;
-
-            _lerpStartPos = -3;
-            _lerpEndPos = 3;
+            SetLerpDirection();
         }
 
         // Update is called once per frame
@@ -53,11 +51,26 @@ namespace TamkRunner
             DeathCheck(_identity);
         }
 
+        public void SetLerpDirection()
+        {
+            if ((float)Random.Range(0f,1f) >= 0.5f)
+            {
+                _lerpStartPos = 3;
+                _lerpEndPos = -3;
+            }
+            else
+            {
+                _lerpStartPos = -3;
+                _lerpEndPos = 3;
+            }
+        }
+
         void OnTriggerEnter(Collider coll)
         {
             if (coll.CompareTag("Player"))
             {
                 coll.GetComponent<CharacterBehavior>().KillPlayer();
+                m_gcFloorManager.ManageEnemyCount();
                 Destroy(this.gameObject);
             }
         }

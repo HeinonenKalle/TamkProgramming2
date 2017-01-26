@@ -48,12 +48,26 @@ namespace TamkRunner
         {
             if (transform.position.z <= m_fEndZ)
             {
-                if (null != m_gcFloorManager && identity == ObjectType.Floor)
+                /*if (null != m_gcFloorManager && identity == ObjectType.Floor)
                     m_gcFloorManager.SpawnNewFloor(m_tTransform.position.z - m_fEndZ);
                 else if (null != m_gcFloorManager && identity == ObjectType.Enemy)
                     m_gcFloorManager.SpawnNewFloor(m_tTransform.position.z - m_fEndZ);
                 else
+                    Debug.LogError("No reference to the floor manager!");*/
+
+                if (null != m_gcFloorManager && identity == ObjectType.Floor)
+                {
+                    m_gcFloorManager.SpawnNewFloor(m_tTransform.position.z - m_fEndZ);
+                }
+                else if (null != m_gcFloorManager && identity == ObjectType.Enemy)
+                {
+                    m_gcFloorManager.SpawnNewFloor(m_tTransform.position.z - m_fEndZ);
+                    m_gcFloorManager.ManageEnemyCount();
+                }
+                else
+                {
                     Debug.LogError("No reference to the floor manager!");
+                }
 
                 Destroy(gameObject);
             }
