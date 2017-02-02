@@ -6,19 +6,25 @@ namespace TamkRunner
 {
     public class SplashScreen_In : StateBase
     {
-        public SplashScreen_In() : base()
+        // The time the splash screen will be shown
+        private float StateTime = 1f;
+
+        public void Start()
         {
             State = StateType.SplashScreen;
+            Debug.Log("Welcome to the SplashScreen_In state, commander.");
         }
 
-        public override void StateActivated()
+        private void Update()
         {
-            //GameStateManager.LoadScene(State);
-        }
-
-        public override void StateDeactivated()
-        {
-            
+            if (StateTime <= 0f)
+            {
+                GameGlobals.Instance.StateManager.LoadState(State);
+            }
+            else
+            {
+                StateTime -= Time.deltaTime;
+            }
         }
     }
 }

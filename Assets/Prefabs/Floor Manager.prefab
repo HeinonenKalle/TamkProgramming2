@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1633951052455786}
+  m_IsPrefabParent: 1
+--- !u!1 &1633951052455786
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4005371324477862}
+  - component: {fileID: 114412333684177382}
+  m_Layer: 0
+  m_Name: Floor Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4005371324477862
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1633951052455786}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114412333684177382
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1633951052455786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cee0ed5469d46040a9916738acda92e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_aFloorPrefabs:
+  - {fileID: 403274, guid: ad5ef0865da5e1b4faf72bcbc83a5c12, type: 2}
+  - {fileID: 462848, guid: 8fc327bd906081446b8dacf0ca4a04b4, type: 2}
+  - {fileID: 451084, guid: 7373d0c5f021698498c56355592e524b, type: 2}
+  - {fileID: 405954, guid: 5c0f76a2915aef74bac8382a5a5e55ef, type: 2}
+  - {fileID: 487422, guid: 65ec0a086041119429b8e5f94da0e8b1, type: 2}
+  EnemyPrefab: {fileID: 4556621066597286, guid: a5a23ea46b0488a4ba95b0fa370657b8,
+    type: 2}
+  CoinPrefab: {fileID: 4357568997743846, guid: 31c54acb541c86f489277fbbdaa94c6c, type: 2}
+  m_fFloorStartZ: 25
+  m_fFloorEndZ: -12
+  m_fMinMovementSpeed: 3
+  m_fMaxMovementSpeed: 10
+  SafeFloorNumber: 5
+  SpeedUpAmount: 0.5
+  MaxEnemiesOnScreen: 5
+  CoinSpawnTime: 0.25
+  CoinParticles: {fileID: 198540506544432700, guid: ca898cda182ea1a4dbfa5499309125be,
+    type: 2}

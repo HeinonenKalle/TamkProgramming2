@@ -6,19 +6,26 @@ namespace TamkRunner
 {
     public class MainMenu_In : StateBase
     {
-        public MainMenu_In() : base()
+        // TODO: Stop being lazy and change this to work with the press of a button instead
+        // The time the main menu will be shown
+        private float StateTime = 1f;
+
+        public void Start()
         {
             State = StateType.MainMenu;
+            Debug.Log("Welcome to the MainMenu_In state, commander.");
         }
 
-        public override void StateActivated()
+        private void Update()
         {
-            //GameStateManager.LoadScene(State);
-        }
-
-        public override void StateDeactivated()
-        {
-
+            if (StateTime <= 0f)
+            {
+                GameGlobals.Instance.StateManager.LoadState(State);
+            }
+            else
+            {
+                StateTime -= Time.deltaTime;
+            }
         }
     }
 }

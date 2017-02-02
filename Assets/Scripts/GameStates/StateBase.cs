@@ -14,8 +14,5 @@ namespace TamkRunner
     public abstract class StateBase : MonoBehaviour
     {
         public StateType State { get; protected set; }
-
-        public virtual void StateActivated() { }
-        public virtual void StateDeactivated() { }
     }
 }

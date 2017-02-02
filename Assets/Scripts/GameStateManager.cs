@@ -7,7 +7,7 @@ namespace TamkRunner
 {
     public class GameStateManager : MonoBehaviour
     {
-        public void LoadNextState(StateType currentState)
+        public void LoadState(StateType currentState)
         {
             if (currentState == StateType.SplashScreen)
             {
@@ -17,9 +17,9 @@ namespace TamkRunner
             {
                 SceneManager.LoadScene("Level1");
             }
-            else if (currentState == StateType.Game)
+            else
             {
-                // Do something here, possibly. ...Maybe?
+                Debug.Log("No load of that type supported.");
             }
         }
     }

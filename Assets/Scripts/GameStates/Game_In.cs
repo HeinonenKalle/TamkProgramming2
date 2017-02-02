@@ -6,19 +6,10 @@ namespace TamkRunner
 {
     public class Game_In : StateBase
     {
-        public Game_In() : base()
+        public void Start()
         {
             State = StateType.Game;
-        }
-
-        public override void StateActivated()
-        {
-            //GameStateManager.LoadScene(State);
-        }
-
-        public override void StateDeactivated()
-        {
-
+            Debug.Log("Welcome to the Game_In state, commander.");
         }
     }
 }
