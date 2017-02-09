@@ -7,6 +7,8 @@ namespace TamkRunner
 {
     public class GameStateManager : MonoBehaviour
     {
+        public StateType CurrentState { get; private set; }
+
 		private string _devModeSceneToLoad = "";
 
 		public void Awake()
@@ -36,12 +38,20 @@ namespace TamkRunner
         {
             if (currentState == StateType.SplashScreen)
             {
+                CurrentState = currentState;
 				Debug.Log ("Loading MainMenu");
                 SceneManager.LoadScene("MainMenu");
             }
             else if (currentState == StateType.MainMenu)
             {
-				Debug.Log ("Loading Level1");
+                CurrentState = currentState;
+                Debug.Log ("Loading Level1");
+                SceneManager.LoadScene("Level1");
+            }
+            else if (currentState == StateType.Game)
+            {
+                CurrentState = currentState;
+                Debug.Log("Reset level initiated.");
                 SceneManager.LoadScene("Level1");
             }
             else

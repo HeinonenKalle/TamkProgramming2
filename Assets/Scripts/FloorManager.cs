@@ -20,6 +20,7 @@ namespace TamkRunner
         public float CoinSpawnTime;
         public ParticleSystem CoinParticles;
 
+        private float _backupSpeed;
         private int _currentEnemies;
         private float _currentCoinTimer;
 
@@ -40,7 +41,12 @@ namespace TamkRunner
         }
 	
 	    // Update is called once per frame
-	    void Update () {
+	    void Update ()
+        {
+            if (!GameGlobals.Instance.IsPlayerAlive)
+            {
+                ChangeSpeed(0f);
+            }
 	    }
 
         public void SpawnSafeFloor(float fZOffset)
@@ -249,6 +255,17 @@ namespace TamkRunner
 
             Debug.Log("goodXLocation = " + goodXLocation);
             return goodXLocation;
+        }
+
+        public void ChangeSpeed(float newSpeed)
+        {
+            _backupSpeed = m_fMovementSpeed;
+            m_fMovementSpeed = newSpeed;
+        }
+
+        public void RestoreSpeedFromBackup()
+        {
+            m_fMovementSpeed = _backupSpeed;
         }
     }
 }

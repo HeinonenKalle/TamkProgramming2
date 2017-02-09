@@ -18,7 +18,7 @@ namespace TamkRunner
 
         private void Update()
         {
-            if (StateTime <= 0f)
+           /* if (StateTime <= 0f)
             {
                 GameGlobals.Instance.StateManager.LoadState(State);
             }
@@ -26,6 +26,12 @@ namespace TamkRunner
             {
                 StateTime -= Time.deltaTime;
             }
+            */
+        }
+
+        public void ChangeScene()
+        {
+            GameGlobals.Instance.StateManager.LoadState(State);
         }
     }
 }

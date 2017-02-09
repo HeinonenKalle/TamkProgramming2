@@ -43,7 +43,7 @@ namespace TamkRunner
             else if (identity == ObjectType.Coin)
             {
                 m_tTransform.position = new Vector3(m_tTransform.position.x, 1.23f, m_fStartZ);
-                m_vTrajectory = m_vTrajectory = m_tTransform.position;
+                m_vTrajectory = m_tTransform.position;
                 m_vTrajectory.z = -1;
             }
 

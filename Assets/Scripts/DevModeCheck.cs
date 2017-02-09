@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 namespace TamkRunner
 {
 	public class DevModeCheck : MonoBehaviour {
-
+        
 		public string CurrentSceneName;
 
 		// Use this for initialization

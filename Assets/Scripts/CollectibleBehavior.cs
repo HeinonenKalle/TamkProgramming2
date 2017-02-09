@@ -14,6 +14,7 @@ namespace TamkRunner
         void Update()
         {
             Move();
+            SpeedCheck();
             transform.position = new Vector3(transform.position.x, 1.23f, transform.position.z);
             DeathCheck(identity);
         }
@@ -23,6 +24,7 @@ namespace TamkRunner
             if (other.CompareTag("Player"))
             {
                 m_gcFloorManager.PlayCoinParticles(transform.position);
+                GameGlobals.Instance.ChangeTextValue(GameGlobals.TextName.Coins, 1);
                 Destroy(gameObject);
             }
         }
