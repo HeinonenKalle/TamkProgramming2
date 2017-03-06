@@ -26,8 +26,6 @@ namespace TamkRunner
             menuStateObject = GameObject.Find("MainMenu_In").GetComponent<MainMenu_In>();
             StartColor = new Color(Random.value, Random.value, Random.value);
             EndColor = new Color(Random.value, Random.value, Random.value);
-            //StartColor = Color.red;
-            //EndColor = Color.green;
         }
 
         void Update()
@@ -42,9 +40,6 @@ namespace TamkRunner
             }
 
             MainCamera.backgroundColor = rng;
-
-            //DickbuttMaterial.color = Color.Lerp(StartColor, EndColor, fRatio);
-            Debug.Log(fRatio);
 
             if (fRatio >= 1.0f)
             {
