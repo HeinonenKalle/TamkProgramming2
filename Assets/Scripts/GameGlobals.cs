@@ -184,6 +184,8 @@ namespace TamkRunner
             GameData data = new GameData();
 
             data.HighScores = _highScores;
+
+			SaveSystem.Save (data);
         }
 
         public void LoadGame()

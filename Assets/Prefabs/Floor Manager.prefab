@@ -67,6 +67,6 @@ MonoBehaviour:
   SafeFloorNumber: 5
   SpeedUpAmount: 0.5
   MaxEnemiesOnScreen: 5
-  CoinSpawnTime: 0.25
+  CoinSpawnTime: 0.5
   CoinParticles: {fileID: 198540506544432700, guid: ca898cda182ea1a4dbfa5499309125be,
     type: 2}
