@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Linq;
+using GameSaving;
+
 
 namespace TamkRunner
 {
@@ -74,10 +75,11 @@ namespace TamkRunner
             DontDestroyOnLoad(gameObject);
             StateManager = GetComponent<GameStateManager>();
             _highScores = new List<float>();
+            _highScores.Add(0);
+            _highScores.Add(0);
+            _highScores.Add(0);
 
-            _highScores.Add(0);
-            _highScores.Add(0);
-            _highScores.Add(0);
+            LoadGame();
         }
 
         public void ChangeIsPlayerAlive(bool newValue)
@@ -127,19 +129,21 @@ namespace TamkRunner
         public void ChangeHighScore()
         {
 
+            for (int i = 0; i < 3; i++)
+            {
+                float scoreToCompareTo = _highScores[i];
 
-                _highScores.OrderByDescending(s => s);
-
-                foreach (float score in _highScores)
+                if (Score > scoreToCompareTo)
                 {
-                    if (Score > score)
+                    for (int j = 2; j > i; j--)
                     {
-                        _highScores.Remove(score);
-                        _highScores.Add(Score);
-                        _highScores.OrderByDescending(s => s);
-                        break;
+                        _highScores[j] = _highScores[j - 1];
                     }
+
+                    _highScores[i] = Score;
+                    break;
                 }
+            }
 
             _firstHighScore.text = _highScores[0].ToString();
             _secondHighScore.text = _highScores[1].ToString();
@@ -148,6 +152,8 @@ namespace TamkRunner
 
         public void GameOverPrompts(bool IsGameOver)
         {
+            SaveGame();
+
             if (IsGameOver)
             {
                 _highScoreText.gameObject.SetActive(true);
@@ -155,11 +161,6 @@ namespace TamkRunner
                 _secondHighScore.gameObject.SetActive(true);
                 _thirdHighScore.gameObject.SetActive(true);
                 _gameOverPrompt.gameObject.SetActive(true);
-                //_highScoreText.enabled = true;
-                //_firstHighScore.enabled = true;
-                //_secondHighScore.enabled = true;
-                //_thirdHighScore.enabled = true;
-                //_gameOverPrompt.enabled = true;
             }
             else if (!IsGameOver)
             {
@@ -168,11 +169,6 @@ namespace TamkRunner
                 _secondHighScore.gameObject.SetActive(false);
                 _thirdHighScore.gameObject.SetActive(false);
                 _gameOverPrompt.gameObject.SetActive(false);
-                //_highScoreText.enabled = false;
-                //_firstHighScore.enabled = false;
-                //_secondHighScore.enabled = false;
-                //_thirdHighScore.enabled = false;
-                //_gameOverPrompt.enabled = false;
             }
         }
 
@@ -181,6 +177,23 @@ namespace TamkRunner
             IsPlayerAlive = true;
             Score = 0;
             CoinsCollected = 0;
+        }
+
+        public void SaveGame()
+        {
+            GameData data = new GameData();
+
+            data.HighScores = _highScores;
+        }
+
+        public void LoadGame()
+        {
+            GameData data = SaveSystem.Load<GameData>();
+
+            if (data != null)
+            {
+                _highScores = data.HighScores;
+            }
         }
     }
 }
