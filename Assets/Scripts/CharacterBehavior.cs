@@ -60,6 +60,7 @@ namespace TamkRunner
             GameGlobals.Instance.ChangeIsPlayerAlive(false);
             gameObject.SetActive(false);
             Debug.Log("Git Gud");
+            GameGlobals.Instance.ChangeHighScore();
             GameGlobals.Instance.GameOverPrompts(true);
             //Respawn();
         }

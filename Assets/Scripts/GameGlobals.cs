@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 namespace TamkRunner
 {
@@ -28,9 +29,9 @@ namespace TamkRunner
         public GameObject UICanvas { get; private set; }
 
         public bool IsPlayerAlive { get; private set; }
-        public int Score { get; private set; }
+        public float Score { get; private set; }
         public int CoinsCollected { get; private set; }
-        public int HighScore { get; private set; }
+        public float HighScore { get; private set; }
 
         public enum TextName
         {
@@ -42,8 +43,12 @@ namespace TamkRunner
         private Text _scoreText;
         private Text _coinText;
         private Text _highScoreText;
+        private Text _firstHighScore;
+        private Text _secondHighScore;
+        private Text _thirdHighScore;
         private Text _gameOverPrompt;
 
+        private List<float> _highScores;
 
         // Use this for initialization
         void Awake()
@@ -68,6 +73,11 @@ namespace TamkRunner
         {
             DontDestroyOnLoad(gameObject);
             StateManager = GetComponent<GameStateManager>();
+            _highScores = new List<float>();
+
+            _highScores.Add(0);
+            _highScores.Add(0);
+            _highScores.Add(0);
         }
 
         public void ChangeIsPlayerAlive(bool newValue)
@@ -87,10 +97,11 @@ namespace TamkRunner
 
         public void Update()
         {
-            /*if (StateManager.CurrentState == StateType.Game && IsPlayerAlive)
+            if (IsPlayerAlive)
             {
-
-            }*/
+                Score += FloorManager.m_fMovementSpeed * Time.deltaTime * CoinsCollected;
+                _scoreText.text = Score.ToString();
+            }
         }
 
         public void SetGameStateStuff(FloorManager floorManager)
@@ -101,37 +112,67 @@ namespace TamkRunner
             _coinText = UICanvas.transform.GetChild(0).GetComponent<Text>();
             _scoreText = UICanvas.transform.GetChild(1).GetComponent<Text>();
             _highScoreText = UICanvas.transform.GetChild(2).GetComponent<Text>();
-            _gameOverPrompt = UICanvas.transform.GetChild(3).GetComponent<Text>();
+            _firstHighScore = UICanvas.transform.GetChild(3).GetComponent<Text>();
+            _secondHighScore = UICanvas.transform.GetChild(4).GetComponent<Text>();
+            _thirdHighScore = UICanvas.transform.GetChild(5).GetComponent<Text>();
+            _gameOverPrompt = UICanvas.transform.GetChild(6).GetComponent<Text>();
         }
 
-        public void ChangeTextValue(TextName nameOfTextToChange, int newValue)
+        public void ChangeCoins(int newValue)
         {
-            if (nameOfTextToChange == TextName.Coins)
-            {
-                CoinsCollected += newValue;
-                _coinText.text = CoinsCollected.ToString();
-            }
-            else if (nameOfTextToChange == TextName.Score)
-            {
+            CoinsCollected += newValue;
+            _coinText.text = CoinsCollected.ToString();
+        }
 
-            }
-            else if (nameOfTextToChange == TextName.HighScore)
-            {
+        public void ChangeHighScore()
+        {
 
-            }
+
+                _highScores.OrderByDescending(s => s);
+
+                foreach (float score in _highScores)
+                {
+                    if (Score > score)
+                    {
+                        _highScores.Remove(score);
+                        _highScores.Add(Score);
+                        _highScores.OrderByDescending(s => s);
+                        break;
+                    }
+                }
+
+            _firstHighScore.text = _highScores[0].ToString();
+            _secondHighScore.text = _highScores[1].ToString();
+            _thirdHighScore.text = _highScores[2].ToString();
         }
 
         public void GameOverPrompts(bool IsGameOver)
         {
             if (IsGameOver)
             {
-                _highScoreText.enabled = true;
-                _gameOverPrompt.enabled = true;
+                _highScoreText.gameObject.SetActive(true);
+                _firstHighScore.gameObject.SetActive(true);
+                _secondHighScore.gameObject.SetActive(true);
+                _thirdHighScore.gameObject.SetActive(true);
+                _gameOverPrompt.gameObject.SetActive(true);
+                //_highScoreText.enabled = true;
+                //_firstHighScore.enabled = true;
+                //_secondHighScore.enabled = true;
+                //_thirdHighScore.enabled = true;
+                //_gameOverPrompt.enabled = true;
             }
             else if (!IsGameOver)
             {
-                _highScoreText.enabled = false;
-                _gameOverPrompt.enabled = false;
+                _highScoreText.gameObject.SetActive(false);
+                _firstHighScore.gameObject.SetActive(false);
+                _secondHighScore.gameObject.SetActive(false);
+                _thirdHighScore.gameObject.SetActive(false);
+                _gameOverPrompt.gameObject.SetActive(false);
+                //_highScoreText.enabled = false;
+                //_firstHighScore.enabled = false;
+                //_secondHighScore.enabled = false;
+                //_thirdHighScore.enabled = false;
+                //_gameOverPrompt.enabled = false;
             }
         }
 

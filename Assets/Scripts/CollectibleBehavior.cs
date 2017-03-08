@@ -24,7 +24,7 @@ namespace TamkRunner
             if (other.CompareTag("Player"))
             {
                 m_gcFloorManager.PlayCoinParticles(transform.position);
-                GameGlobals.Instance.ChangeTextValue(GameGlobals.TextName.Coins, 1);
+                GameGlobals.Instance.ChangeCoins(1);
                 Destroy(gameObject);
             }
         }
