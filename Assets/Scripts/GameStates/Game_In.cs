@@ -21,7 +21,7 @@ namespace TamkRunner
             Debug.Log("Welcome to the Game_In state, commander.");
             GameGlobals.Instance.SetGameDefaults();
             _characterBehavior = GameObject.Find("Player Character").GetComponent<CharacterBehavior>();
-            GameGlobals.Instance.SetGameStateStuff(FloorManager);
+            GameGlobals.Instance.SetGameStateStuff();
         }
 
         public void Update()

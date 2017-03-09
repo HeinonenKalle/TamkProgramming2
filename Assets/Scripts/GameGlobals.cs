@@ -48,10 +48,10 @@ namespace TamkRunner
         private Text _secondHighScore;
         private Text _thirdHighScore;
         private Text _gameOverPrompt;
+        private Image _scoreBackground;
 
         private List<float> _highScores;
-
-        // Use this for initialization
+        
         void Awake()
         {
             if (_instance == null)
@@ -68,8 +68,7 @@ namespace TamkRunner
                 Destroy(gameObject);
             }
         }
-
-        // Update is called once per frame
+        
         private void Initialize()
         {
             DontDestroyOnLoad(gameObject);
@@ -106,7 +105,7 @@ namespace TamkRunner
             }
         }
 
-        public void SetGameStateStuff(FloorManager floorManager)
+        public void SetGameStateStuff()
         {
             FloorManager = GameObject.Find("Floor Manager").GetComponent<FloorManager>();
 
@@ -118,6 +117,7 @@ namespace TamkRunner
             _secondHighScore = UICanvas.transform.GetChild(4).GetComponent<Text>();
             _thirdHighScore = UICanvas.transform.GetChild(5).GetComponent<Text>();
             _gameOverPrompt = UICanvas.transform.GetChild(6).GetComponent<Text>();
+            _scoreBackground = UICanvas.transform.GetChild(7).GetComponent<Image>();
         }
 
         public void ChangeCoins(int newValue)
@@ -128,7 +128,6 @@ namespace TamkRunner
 
         public void ChangeHighScore()
         {
-
             for (int i = 0; i < 3; i++)
             {
                 float scoreToCompareTo = _highScores[i];
@@ -161,6 +160,7 @@ namespace TamkRunner
                 _secondHighScore.gameObject.SetActive(true);
                 _thirdHighScore.gameObject.SetActive(true);
                 _gameOverPrompt.gameObject.SetActive(true);
+                _scoreBackground.gameObject.SetActive(true);
             }
             else if (!IsGameOver)
             {
@@ -169,6 +169,7 @@ namespace TamkRunner
                 _secondHighScore.gameObject.SetActive(false);
                 _thirdHighScore.gameObject.SetActive(false);
                 _gameOverPrompt.gameObject.SetActive(false);
+                _scoreBackground.gameObject.SetActive(false);
             }
         }
 

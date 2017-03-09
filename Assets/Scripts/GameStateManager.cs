@@ -29,11 +29,20 @@ namespace TamkRunner
 			// If DMC was activated, skip straight to Level1.
 			if (_devModeSceneToLoad != "")
 			{
-				LoadState (StateType.MainMenu);
-				_devModeSceneToLoad = "";
+                if (_devModeSceneToLoad.Equals("MainMenu"))
+                {
+                    LoadState(StateType.SplashScreen);
+                    _devModeSceneToLoad = "";
+                }
+                else if (_devModeSceneToLoad.Equals("Level1"))
+                {
+                    LoadState(StateType.MainMenu);
+                    _devModeSceneToLoad = "";
+                }
 			}
 		}
 
+        // Load the next state based on the current state
         public void LoadState(StateType currentState)
         {
             if (currentState == StateType.SplashScreen)

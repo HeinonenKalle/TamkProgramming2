@@ -15,15 +15,13 @@ namespace TamkRunner
         private CharacterController _characterController;
         private Vector3 _moveDirection = Vector3.zero;
         private Vector3 _startPosition;
-
-        // Use this for initialization
+        
         void Start()
         {
             _startPosition = transform.position;
             _characterController = GetComponent<CharacterController>();
         }
-
-        // Update is called once per frame
+        
         void Update()
         {
             if (GameGlobals.Instance.IsPlayerAlive)
@@ -59,10 +57,8 @@ namespace TamkRunner
             PlayDeathsplosion();
             GameGlobals.Instance.ChangeIsPlayerAlive(false);
             gameObject.SetActive(false);
-            Debug.Log("Git Gud");
             GameGlobals.Instance.ChangeHighScore();
             GameGlobals.Instance.GameOverPrompts(true);
-            //Respawn();
         }
 
         private void PlayDeathsplosion()

@@ -283,7 +283,7 @@ MonoBehaviour:
   - {fileID: 1036275804}
   - {fileID: 1214851496}
   m_fEventTime: 0
-  m_fLerpDuration: 0.3
+  m_fLerpDuration: 0.6
 --- !u!1 &188554001
 GameObject:
   m_ObjectHideFlags: 0

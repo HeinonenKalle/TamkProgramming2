@@ -29,8 +29,6 @@ namespace TamkRunner
             float fZPos = 0.0f;
             float fFloorLength = Mathf.Abs(m_fFloorStartZ) + Mathf.Abs(m_fFloorEndZ);
 
-            Debug.Log("Floor length is: " + fFloorLength.ToString());
-
             m_fMovementSpeed = m_fMinMovementSpeed;
 
             while (fZPos > -fFloorLength)
@@ -194,8 +192,6 @@ namespace TamkRunner
             }
 
             coinPart.m_gcFloorManager = this;
-
-            Debug.Log("Coin Spawn!");
         }
 
         public void PlayCoinParticles(Vector3 playPosition)
@@ -215,13 +211,6 @@ namespace TamkRunner
 
         public int SpawnXCheck()
         {
-            /*
-             * RaycastHit hit;
-             * if (Physics.Raycast(vPos, -Vector3.up, out hit, 3.0f))
-             * {
-             * Debug.DrawLine(vPos, new Vector3(vPos.x, vPos.y - 2, vPos.z), Color.green, 1, false);
-             * }
-             */
             RaycastHit hit;
 
             List<int> possibleLocations = new List<int>();
@@ -237,9 +226,6 @@ namespace TamkRunner
                 {
                     Debug.DrawRay(new Vector3(i, 1.3f, m_fFloorStartZ), Vector3.down, Color.red, 1f);
                 }
-
-                //Physics.Raycast(new Vector3(i, 1.3f, m_fFloorStartZ), Vector3.down);
-                //Debug.DrawRay(new Vector3(i, 1.3f, m_fFloorStartZ), Vector3.down, Color.green, 5f);
             }
 
             int goodXLocation = 5;
@@ -253,7 +239,6 @@ namespace TamkRunner
                 goodXLocation = Random.Range(0, possibleLocations.Count - 1);
             }
 
-            Debug.Log("goodXLocation = " + goodXLocation);
             return goodXLocation;
         }
 
